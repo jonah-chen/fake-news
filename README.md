@@ -1,7 +1,39 @@
 # Determining Fake News
-[Insert blurb about relevancy]
 
-### Model Architecture
+<figure class="image">
+  <img src="img/fakenews.jpg" alt="fake news spongebob">
+  <figcaption>Spongebob: Fake news! Credits: my good friend Casper Guo.</figcaption>
+</figure>
+
+# Installation Instructions
+## Prereqs
+1. Clone the repository.
+2. `pip install -r requirements.txt`
+3. `python spacy download en_core_web_lg`
+
+## Training the model
+Run `python lstm.py` or `python lstm_t.py` (for titles only) using a GPU. (Note: This step is optional as pre-trained models are included)
+
+## Running the front-end
+1. Run `python app.py` or `flask run`.
+2. Go to `http://localhost:5000/`
+
+# Technical Details
+## Training Data and Preprocessing
+
+The training data includes over 50k news articles from three different datasets
+
+1. https://www.kaggle.com/clmentbisaillon/fake-and-real-news-dataset?select=Fake.csv 
+
+2. https://www.kaggle.com/nopdev/real-and-fake-news-dataset
+
+3. https://www.kaggle.com/c/fake-news/data
+
+The details for the preprocessing are in `preprocessing.py`. The procedure involves first tokenizing the article (or title), padding the length to 1000 words (for body) and 54 words (for title), and using spaCy to generate 300-dimensional word vectors. This process is done in parallel on the CPU to increase performance.
+
+The data from all three datasets are then shuffled and split 70-30 into training and validation sets.
+
+## Model Architecture
 
 ![flowchart](img/flowchart.png)
 
@@ -27,15 +59,12 @@ Non-trainable params: 0
 _________________________________________________________________
 ```
 
-# Installation Instructions
-## Prereqs
-1. Clone the repository.
-2. `pip install -r requirements.txt`
-3. `python spacy download en_core_web_lg`
+## Training and Other Info
+How this model is trained is specified in `lstm.py` and `lstm_t.py`. Some details of the training process for the pre-trained models are logged by Tensorboard and shown below.
+<p float="left">
+  <img src="img/acc_t.png" width="300" />
+  <img src="img/loss_t.png" width="300" /> 
+</p>
+The distribution of the model parameters are shown below.  
 
-## Training the model
-Run `python lstm.py` using a GPU.
-
-## Running the front-end
-1. Run `python app.py` or `flask run`.
-2. Go to `http://localhost:5000/`
+![flowchart](img/dist.png)
