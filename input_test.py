@@ -15,9 +15,16 @@ def text_predict(file_path, model_path='model_final.h5'):
     a = model(vec, training=False)
     return a
 
-def string_predict(text, model_path):
-    # with open(file_path, 'r') as f:
-    #     text = f.read().replace('\n', '')
+def string_predict_text(text, model_path='model_final.h5'):
+    model = load_model(model_path)
+
+    vec = to_npy(text).reshape(1,MAX_LEN,300)
+
+    a = model(vec, training=False)
+    b = '%.2f'%(100*float(a[0][1]))+"%"
+    return b
+
+def string_predict_title(text, model_path='model_title.h5'):
     model = load_model(model_path)
 
     vec = to_npy_2(text).reshape(1,MAX_LEN_TITLE,300)
@@ -38,8 +45,7 @@ def title_predict(file_path, model_path='model_title.h5'):
     vec = to_npy_2(text).reshape(1,MAX_LEN_TITLE,300)
 
     a = model(vec, training=False)
-    b = str(float(a[0][1]))
-    return b
+    return a
 
 if __name__ == "__main__":
     # print(text_predict('test_data/test.txt'))

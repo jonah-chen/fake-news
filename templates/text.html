@@ -25,18 +25,18 @@
   <div class="jumbotron">
       <center>
         <div><h1 class="display-2">Fake News Detector</h1></div>
-        <p class="lead" style="font-size:30px">Input Title Below:</p>
+        <p class="lead" style="font-size:30px">Input Article Text Below:</p>
         <!-- <input type="text" id="inputText" value=""><button onclick="f()">Evaluate</button> -->
         <div style="width:30% ">
-
           <form method="POST">
-            <input name="title" class="form-control input-lg">
+            <input name="text" class="form-control input-lg">
             <input type="submit" class="btn btn-success btn-lg">
           </form>
         </div>
         <br><br>
-        <p class="lead" id="outputText">How likely it's fake: {{title_score}}</p> 
-        <a href="text" class="btn btn-success btn-secondary">Try Body Text Instead</a>
+        <p class="lead" id="outputText">How likely it's fake: {{text_score}}</p> 
+        <a href=".." class="btn btn-success btn-secondary">Try Title Instead</a>
+
     </center>
   </div>
   <!-- <center>
