@@ -7,8 +7,11 @@
 
     <!-- Bootstrap CSS -->
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
-    <link rel="stylesheet" href="styling/bootstrap.min.css" />
-    <link rel="stylesheet" href="styling/bootstrap.css" />
+    <link rel="stylesheet" href="https://bootswatch.com/_assets/css/custom.min.css">
+    <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
@@ -21,18 +24,36 @@
   <!-- Main jumbotron for a primary marketing message or call to action -->
   <div class="jumbotron">
       <center>
-        <div><h1 class="display-3">Fake News Detector</h1></div>
-        <p class="lead">Input Title Below:</p>
+        <div><h1 class="display-2">Fake News Detector</h1></div>
+        <p class="lead" style="font-size:30px">Input Title Below:</p>
         <!-- <input type="text" id="inputText" value=""><button onclick="f()">Evaluate</button> -->
-        <form method="POST">
-          <input name="text">
-          <input type="submit">
-        </form>
+        <div style="width:30% ">
+
+          <form method="POST">
+            <input name="text" class="form-control input-lg">
+            <input type="submit" class="btn btn-success btn-lg">
+          </form>
+        </div>
+        <!-- <form method="POST">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <button class="btn btn-outline-secondary" type="button">Button</button>
+            </div>
+            <input name="text" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+          </div>
+        </form> -->
+
       
         <br><br>
-        <p class="lead" id="outputText">Real Confidence: {{test}}%</p> 
+        <p class="lead" id="outputText">How likely it's fake: {{test}}</p> 
     </center>
   </div>
+  <center>
+    <h1 class="display-2">How it works</h1>
+    <iframe  width="800" height="600"
+    src="https://www.youtube.com/embed/dQw4w9WgXcQ">
+  </iframe>
+  </center>
 </main>
 
 <script>

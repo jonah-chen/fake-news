@@ -23,7 +23,7 @@ def string_predict(text, model_path):
     vec = to_npy_2(text).reshape(1,MAX_LEN_TITLE,300)
 
     a = model(vec, training=False)
-    b = '%.2f'%(100*float(a[0][1]))
+    b = '%.2f'%(100*float(a[0][1]))+"%"
     return b
 
 
