@@ -1,1 +1,3 @@
 prepared-data/*
+venv/*
+__pycache__
