@@ -7,7 +7,7 @@
 
 <br/>
 
-Media has always been a tool of the ones with political power to manipulate the masses. Given the power dynamic between the media press and the readers, it is unfortunately quite easy to circulate fake news in the media, in a high-quality form that makes them indistinguishable from real news to the reader. The presence of fake news diverts the readership from real information that need to be circulated into the society at large, such as fact-based political news for making informed choices, real facts about safe public health practices, etc. As fake news becomes more “real”, it is essential that there be a reliable program that can tell the reader whether a news is real or fake for them to perceive the media accurately.
+Media has always been a tool of the ones with political power to manipulate the masses. Given the power dynamic between the media press and the readers, it is unfortunately quite easy to circulate fake news in the media, in a high-quality form that makes them indistinguishable from real news to the reader. The presence of fake news diverts the readership from real information that need to be circulated into the society at large, such as fact-based political news for making informed choices, real facts about safe public health practices, etc. As fake news becomes more “real”, it is essential that there be a reliable program that can tell the reader whether a news is real or fake for them to perceive the media accurately, especially today when accurately informing people on safe public health practices and vaccine facts are quintissential.
 
 # Installation Instructions
 ## Prereqs
