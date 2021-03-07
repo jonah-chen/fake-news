@@ -11,7 +11,7 @@ def my_form():
 @app.route('/', methods=['POST'])
 def my_form_post():
     text = request.form['text']
-    processed_text = string_predict(text, 'model_full.h5')
+    processed_text = string_predict(text, 'model-title.h5')
     return render_template('index.html', test=processed_text)
 
 if __name__ == '__main__':
