@@ -2,7 +2,7 @@ from tensorflow.keras.models import load_model
 
 from preprocessing import to_npy, MAX_LEN, MAX_LEN_TITLE, to_npy_2
 
-def text_predict(file_path, model_path):
+def text_predict(file_path, model_path='model_final.h5'):
     f = open(file_path, "r")
     text = f.read()
     f.close()
@@ -27,7 +27,7 @@ def string_predict(text, model_path):
     return b
 
 
-def title_predict(file_path, model_path):
+def title_predict(file_path, model_path='model_title.h5'):
     f = open(file_path, "r")
     text = f.read()
     f.close()
@@ -42,4 +42,5 @@ def title_predict(file_path, model_path):
     return b
 
 if __name__ == "__main__":
-    print(title_predict('test_data/test.txt', 'model_full.h5'))
+    # print(text_predict('test_data/test.txt'))
+    print(title_predict('test_data/test.txt'))

@@ -168,6 +168,22 @@ def get_dataset_3():
         else:
             Y_t2[i,0] = 1.0
     return X_t2, Y_t2
+
+def get_dataset_3t():
+    df = pd.read_csv("data/train.csv")
+    df = df.dropna()
+    X = df["text"]
+    Y = list(df["title"])[:]
+    with ProcessPoolExecutor() as executor:
+        X_t2 = np.array(list(executor.map(to_npy_2,X)),dtype=np.float32)
+    Y_t2 = np.zeros((len(X),2,),dtype=np.float32)
+    for i in range(len(Y)):
+        if Y[i] == 1:
+            Y_t2[i,1] = 1.0
+        else:
+            Y_t2[i,0] = 1.0
+    return X_t2, Y_t2
+
 # arr = np.empty((48,-1,300,))
 # for i in range(48):
 #     arr[i] = x_real[i]

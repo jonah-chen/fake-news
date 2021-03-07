@@ -5,11 +5,12 @@ from tensorflow.keras.layers import LSTM, Dense, BatchNormalization, Masking, Dr
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.losses import binary_crossentropy
-from tensorflow.keras.callbacks import TensorBoard
+from tensorflow.keras.callbacks import TensorBoard, ModelCheckpoint
 
 from time import time
 
 tensorboard = TensorBoard(log_dir=f"LOGS/{time()}", histogram_freq=1, write_images=True)
+checkpoint = ModelCheckpoint("checkpoint/ckpt.h5", save_best_only=True, save_weights_only=True, monitor='val_accuracy', mode='max')
 
 
 from preprocessing import PADDING_CONST, generate_body, generate_title, get_dataset_2, get_dataset_3
@@ -68,15 +69,18 @@ del Y
 
 model = Sequential()
 model.add(Masking(mask_value=PADDING_CONST, input_shape=(None, 300,)))
+model.add(LSTM(256, return_sequences=True))
+model.add(Dropout(0.3))
 model.add(LSTM(256))
-model.add(Dropout(0.2))
+model.add(Dropout(0.3))
 model.add(Dense(2, activation="softmax"))
 
 model.compile(metrics=['accuracy'], loss=binary_crossentropy, optimizer=SGD(lr=0.01, momentum=0.9))
 
 model.summary()
 
-model.fit(X_train, Y_train, batch_size=64, epochs=5, validation_data=(X_test,Y_test), use_multiprocessing=True, callbacks=[tensorboard])
+model.fit(X_train, Y_train, batch_size=32, epochs=20, validation_data=(X_test,Y_test), use_multiprocessing=True, callbacks=[tensorboard, checkpoint])
 
-model.save("model_3full.h5")
+model.load_weights("checkpoint/ckpt.h5")
+model.save("model_final.h5")
 # https://www.tensorflow.org/api_docs/python/tf/keras/layers/LSTM
