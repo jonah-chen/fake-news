@@ -90,7 +90,7 @@ def generate_body(end=None):
 
     fake.drop(columns=["date", "subject"], inplace=True)
     real.drop(columns=["date", "subject"], inplace=True)
-    with ProcessPoolExecutor(max_workers=24) as executor:
+    with ProcessPoolExecutor() as executor:
         x_real = np.array(list(executor.map(to_npy, real["text"][:end])), dtype=np.float32)
         x_fake = np.array(list(executor.map(to_npy, fake["text"][:end])), dtype=np.float32)
     return x_real, x_fake
