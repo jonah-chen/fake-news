@@ -9,10 +9,10 @@ from tensorflow.keras.callbacks import TensorBoard
 
 from time import time
 
-tensorboard = TensorBoard(log_dir=f"LOGS/{time}", histogram_freq=1, write_images=True)
+tensorboard = TensorBoard(log_dir=f"LOGS/{time()}", histogram_freq=1, write_images=True)
 
 
-from preprocessing import PADDING_CONST, generate_body, generate_title
+from preprocessing import PADDING_CONST, generate_body, generate_title, get_dataset_2, get_dataset_3
 
 
 
@@ -30,8 +30,7 @@ from preprocessing import PADDING_CONST, generate_body, generate_title
 # 4. Train model on full set and test (overnight)
 
 
-x_real, x_fake = generate_body(10000)
-
+x_real, x_fake = generate_body(4000) # get the first 4000 real and fake articles from this dataset
 
 
 X = np.append(x_real, x_fake, axis=0)
@@ -48,15 +47,28 @@ for i in range(len(x_real), len(x_real)+len(x_fake)):
 del x_real
 del x_fake
 
+_X, _Y = get_dataset_2() # extract all the articles from the 2nd dataset
+X = np.append(X, _X, axis=0)
+Y = np.append(Y, _Y, axis=0)
+
+_X, _Y = get_dataset_3() # extract all the articles from the 3rd dataset
+X = np.append(X, _X, axis=0)
+Y = np.append(Y, _Y, axis=0)
+
+del _X
+del _Y
+
 from sklearn.model_selection import train_test_split
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=101)
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3)
 
 del X
 del Y
 
+# Build the simple model
+
 model = Sequential()
 model.add(Masking(mask_value=PADDING_CONST, input_shape=(None, 300,)))
-model.add(LSTM(64))
+model.add(LSTM(256))
 model.add(Dropout(0.2))
 model.add(Dense(2, activation="softmax"))
 
@@ -66,5 +78,5 @@ model.summary()
 
 model.fit(X_train, Y_train, batch_size=64, epochs=5, validation_data=(X_test,Y_test), use_multiprocessing=True, callbacks=[tensorboard])
 
-model.save("model_full.h5")
+model.save("model_3full.h5")
 # https://www.tensorflow.org/api_docs/python/tf/keras/layers/LSTM

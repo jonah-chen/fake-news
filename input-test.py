@@ -27,4 +27,4 @@ def title_predict(file_path, model_path):
     return model(vec, training=False)
 
 if __name__ == "__main__":
-    print(title_predict('test_data/test.txt', 'model_full.h5'))
+    print(title_predict('test_data/test.txt', 'model_2full.h5'))

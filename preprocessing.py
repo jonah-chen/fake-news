@@ -113,6 +113,61 @@ def generate_title(end=None):
         x_real = np.array(list(executor.map(to_npy_2, real["title"][:end])), dtype=np.float32)
         x_fake = np.array(list(executor.map(to_npy_2, fake["title"][:end])), dtype=np.float32)
     return x_real, x_fake
+
+def get_dataset_2():
+    """Generate the data for the second dataset
+
+    Returns:
+        np.array,np.array: X and Y
+    """
+    df = pd.read_csv("data/news.csv")
+    df = df.dropna()
+    X = df["text"]
+    Y = df["label"]
+    with ProcessPoolExecutor() as executor:
+        X_t2 = np.array(list(executor.map(to_npy,X)),dtype=np.float32)
+    Y_t2 = np.zeros((len(X),2,),dtype=np.float32)
+    for i in range(len(Y)):
+        if Y[i]=="FAKE":
+            Y_t2[i,1] = 1.0
+        else:
+            Y_t2[i,0] = 1.0
+    return X_t2, Y_t2
+
+def get_dataset_2t():
+    """Generate the data for the second dataset
+
+    Returns:
+        np.array,np.array: X and Y
+    """
+    df = pd.read_csv("data/news.csv")
+    df = df.dropna()
+    X = df["title"]
+    Y = df["label"]
+    with ProcessPoolExecutor() as executor:
+        X_t2 = np.array(list(executor.map(to_npy_2,X)),dtype=np.float32)
+    Y_t2 = np.zeros((len(X),2,),dtype=np.float32)
+    for i in range(len(Y)):
+        if Y[i]=="FAKE":
+            Y_t2[i,1] = 1.0
+        else:
+            Y_t2[i,0] = 1.0
+    return X_t2, Y_t2
+
+def get_dataset_3():
+    df = pd.read_csv("data/train.csv")
+    df = df.dropna()
+    X = df["text"]
+    Y = list(df["label"])[:]
+    with ProcessPoolExecutor() as executor:
+        X_t2 = np.array(list(executor.map(to_npy,X)),dtype=np.float32)
+    Y_t2 = np.zeros((len(X),2,),dtype=np.float32)
+    for i in range(len(Y)):
+        if Y[i] == 1:
+            Y_t2[i,1] = 1.0
+        else:
+            Y_t2[i,0] = 1.0
+    return X_t2, Y_t2
 # arr = np.empty((48,-1,300,))
 # for i in range(48):
 #     arr[i] = x_real[i]
