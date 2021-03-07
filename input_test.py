@@ -21,7 +21,7 @@ def string_predict_text(text, model_path='model_final.h5'):
     vec = to_npy(text).reshape(1,MAX_LEN,300)
 
     a = model(vec, training=False)
-    b = '%.2f'%(100*float(a[0][1]))+"%"
+    b = '%.0f'%(100*float(a[0][1]))+"%"
     return b
 
 def string_predict_title(text, model_path='model_title.h5'):
@@ -30,7 +30,7 @@ def string_predict_title(text, model_path='model_title.h5'):
     vec = to_npy_2(text).reshape(1,MAX_LEN_TITLE,300)
 
     a = model(vec, training=False)
-    b = '%.2f'%(100*float(a[0][1]))+"%"
+    b = '%.0f'%(100*float(a[0][1]))+"%"
     return b
 
 
